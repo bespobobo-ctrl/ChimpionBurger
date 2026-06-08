@@ -1,50 +1,40 @@
 # 🍔 Chempion Burger — Restoran POS
 
-Restoran/kafe uchun kassa (POS) tizimi. **Node.js + Express + SQLite + vanilla frontend.**
-Lokal ishlaydi (internetsiz, kassa kompyuterida).
+Restoran/kafe kassa (POS) tizimi. **Statik frontend (HTML/CSS/JS) + Supabase.**
+Vercel'da deploy qilinadi (serversiz). Ma'lumot Supabase'da (`cb_` prefiksli jadvallar).
 
-## Ishga tushirish
+## Sozlash (bir martalik)
 
+1. **Supabase** → loyihangiz → **SQL Editor** → `supabase_setup.sql` faylini yopishtirib **Run**.
+   (Jadvallar, RLS va namuna menyu yaratiladi.)
+2. (Ixtiyoriy) Boshqa Supabase proyekti ishlatmoqchi bo'lsangiz, `app.js` boshidagi
+   `SUPABASE_URL` va `SUPABASE_KEY` ni almashtiring.
+
+## Lokal ishga tushirish
+Oddiy statik server yetarli:
 ```bash
-npm install        # paketlarni o'rnatish (express, better-sqlite3)
-npm start          # serverni ishga tushirish
+npx -y serve -l 3000      # yoki istalgan statik server
 ```
+So'ng: http://localhost:3000
 
-So'ng brauzerда oching: **http://localhost:3000**
-
-Birinchi ishga tushirishda baza (`db/chempion.db`) avtomatik yaratiladi va namuna menyu yuklanadi.
-
-## Buyruqlar
-- `npm start` — server (http://localhost:3000)
-- `npm run dev` — avto-qayta yuklash bilan (kod o'zgarsa)
-- `npm run seed` — bazani namuna menyu bilan to'ldirish (bo'sh bo'lsa)
+## Vercel'ga deploy
+- GitHub repo'ni Vercel'ga ulang (Import) → framework "Other" → Deploy.
+- Build kerak emas (statik). Root'dagi `index.html` ishlaydi.
 
 ## Tuzilma
 ```
-server.js            Express server
-db/
-  schema.sql         jadvallar (categories, products, orders, order_items)
-  seed.sql           namuna menyu
-  database.js        SQLite ulanish
-  init.js            baza tayyorlash + seed
-routes/
-  menu.js            GET /api/menu, /categories, /products
-  orders.js          POST/GET/PATCH /api/orders
-  reports.js         GET /api/reports/daily
-public/
-  index.html, style.css, app.js   POS interfeysi
+index.html            POS interfeysi
+style.css             uslub
+app.js                mantiq (Supabase client)
+supabase_setup.sql    baza sxemasi + RLS + namuna menyu (bir marta Run)
 ```
 
-## Imkoniyatlar (poydevor)
+## Imkoniyatlar
 - Menyu (kategoriya + mahsulot), savat, miqdor +/−
 - Buyurtma turlari: **Zal / Olib ketish / Yetkazib berish**
-- Xizmat haqi (%), chegirma, jami hisob
-- Buyurtmani tasdiqlash → bazaga saqlash → chek
+- Xizmat haqi (%), chegirma, jami
+- Tasdiqlash → Supabase'ga saqlash → chek
 - Kunlik hisobot (tushum, turlar, eng ko'p sotilgan)
 
-## Keyingi bosqichlar (arxitektura bo'yicha)
-- Termal printer integratsiyasi
-- Foydalanuvchi rollari (kassir/admin)
-- Stol xaritasi
-- Ombor hisobi
-- Click / Payme to'lov
+## Keyingi bosqichlar
+Termal printer · rollar (kassir/admin) · stol xaritasi · ombor · Click/Payme to'lov.
