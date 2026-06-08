@@ -1,0 +1,16 @@
+{
+  "name": "chempion-burger-pos",
+  "version": "1.0.0",
+  "description": "Chempion Burger — Restoran POS (kassa) tizimi (Node.js + Express + SQLite)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node db/init.js"
+  },
+  "keywords": ["pos", "restaurant", "burger", "kassa"],
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
